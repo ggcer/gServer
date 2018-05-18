@@ -1,8 +1,8 @@
 /* ------------------------------------------websocket handlers入口------------------------------------------ */
-var roomListHandler = require('./roomListHandler')
-var roomHandler = require('./roomHandler')
+const roomListHandler = require('./roomListHandler')
+const roomHandler = require('./roomHandler')
 const handlerRepeater = {
-  handleMsg: function(ws, reqParam, msgObj, onlineObj) {
+  handleMsg(ws, reqParam, msgObj, onlineObj) {
      //当前websocket的请求路径
     let path = reqParam.path;
     //获取处理当前websocket请求路径的handler

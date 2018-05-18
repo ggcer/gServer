@@ -1,6 +1,6 @@
 /* ------------------------------------------websocket roomListHandler------------------------------------------ */
 const roomListHandler = {
-  getRoomList: function(ws, reqParam, msgObj, onlineObj) {
+  getRoomList(ws, reqParam, msgObj, onlineObj) {
     console.log(msgObj);
   }
 }

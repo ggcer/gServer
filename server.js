@@ -10,7 +10,6 @@ var http = require('http');
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 
-
 var app = express();
 //设置请求编码格式为json格式
 app.use(express.json());
