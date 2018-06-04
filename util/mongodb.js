@@ -9,6 +9,7 @@ const mongodb = {
   insert(row, table, succCb, failCb) {
     mongoClient.connect(dbConnStr, function (error, db) {
       if (error) {
+        console.log(error);
         failCb(error);
       } else {
         //创建连接
@@ -16,6 +17,7 @@ const mongodb = {
         //进行插入操作
         collection.insert(row, function (error, result) {
           if (error) {
+            console.log(error);
             failCb(error);
           } else {
             succCb(result.result);
@@ -28,18 +30,40 @@ const mongodb = {
   delete() {
 
   },
-  update() {
-
+  update(whereObj, setObj, table, succCb, failCb) {
+    mongoClient.connect(dbConnStr, function (error, db) {
+      if (error) {
+        console.log(error);
+        failCb(error);
+      } else {
+        //创建连接
+        let collection = db.collection(table);
+        let set = {
+          $set: setObj
+        }
+        collection.updateMany(whereObj, set, function (error, result) {
+          if (error) {
+            console.log(error);
+            failCb(error);
+          } else {
+            succCb(result.result);
+            db.close();
+          }
+        })
+      }
+    })
   },
   select(whereObj, table, succCb, failCb) {
     mongoClient.connect(dbConnStr, function (error, db) {
       if (error) {
+        console.log(error);
         failCb(error);
       } else {
         //创建连接
         let collection = db.collection(table);
         collection.find(whereObj).toArray((error, rows) => {
           if (error) {
+            console.log(error);
             failCb(error);
           } else {
             succCb(rows);

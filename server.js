@@ -1,8 +1,9 @@
 /* ------------------------------------------express app实例------------------------------------------ */
-var globalConfig = require('./public/globalConfig');
+const globalConfig = require('./public/globalConfig');
 var express = require('express');
 var logger = require('morgan');
 var path = require('path');
+var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var debug = require('debug')('gserver');
 var http = require('http');
@@ -11,8 +12,12 @@ var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 
 var app = express();
-//设置请求编码格式为json格式
-app.use(express.json());
+//捕获进程异常
+process.on('uncaughtException', (err) => {
+  console.error(err)
+});
+//设置请求编码格式为json格式，且限制json请求的最大长度为50mb
+app.use(express.json({limit: '50mb'}));
 //静态资源目录
 app.use(express.static(path.join(__dirname, 'public')));
 //日志
